@@ -31,7 +31,7 @@ class RouteParserTest extends TestCase
 		$parser->parse($route);
 	}
 
-	public function provideValidRouteData(): array
+	public static function provideValidRouteData(): array
 	{
 		return [
 			[
@@ -127,7 +127,7 @@ class RouteParserTest extends TestCase
 		];
 	}
 
-	public function provideInvalidRouteData(): array
+	public static function provideInvalidRouteData(): array
 	{
 		return [
 			[
