@@ -1,6 +1,6 @@
 <?php
 
-namespace Leo\NgRoute\RouteSegment;
+namespace Leo\NgRoute\RouteSegments;
 
 interface RouteSegmentInterface
 {
