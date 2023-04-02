@@ -11,8 +11,8 @@ class RegexRouteSegment implements RouteSegmentInterface
 		private string $regex,
 	)
 	{
-		if ($this->varname === NULL)
-			$this->varname = self::DEFAULT_REGEX;
+		if (!$this->regex)
+			$this->regex = self::DEFAULT_REGEX;
 	}
 
 	public function matches(): string
