@@ -1,7 +1,7 @@
 <?php
 
 use Leo\NgRoute\RouteParser\Exceptions\BracketsMismatchException;
-use Leo\NgRoute\RouteParser\Exceptions\EmptyOptionalSegmentException;
+use Leo\NgRoute\RouteParser\Exceptions\EmptyRouteException;
 use Leo\NgRoute\RouteParser\Exceptions\OptionalSegmentsInMiddleException;
 use Leo\NgRoute\RouteParser\RouteParser;
 use PHPUnit\Framework\TestCase;
@@ -144,15 +144,15 @@ class RouteParserTest extends TestCase
 			],
 			[
 				'/test[]',
-				EmptyOptionalSegmentException::class,
+				EmptyRouteException::class,
 			],
 			[
 				'/test[[opt]]',
-				EmptyOptionalSegmentException::class,
+				EmptyRouteException::class,
 			],
 			[
 				'[[test]]',
-				EmptyOptionalSegmentException::class,
+				EmptyRouteException::class,
 			],
 			[
 				'/test[/opt]/required',

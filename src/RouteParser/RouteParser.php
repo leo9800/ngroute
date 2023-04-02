@@ -3,7 +3,7 @@
 namespace Leo\NgRoute\RouteParser;
 
 use Leo\NgRoute\RouteParser\Exceptions\BracketsMismatchException;
-use Leo\NgRoute\RouteParser\Exceptions\EmptyOptionalSegmentException;
+use Leo\NgRoute\RouteParser\Exceptions\EmptyRouteException;
 use Leo\NgRoute\RouteParser\Exceptions\OptionalSegmentsInMiddleException;
 use Leo\NgRoute\RouteParserInterface;
 
@@ -46,7 +46,7 @@ REGEX;
 
 		foreach ($segments as $n => $segment) {
 			if ($segment === '' && $n !== 0)
-				throw new EmptyOptionalSegmentException();
+				throw new EmptyRouteException();
 
 			$current_route .= $segment;
 			$route_datas[] = $this->parsePlaceholders($current_route);
