@@ -4,6 +4,7 @@ namespace Leo\NgRoute\Data;
 
 use Leo\NgRoute\DataInterface;
 use Leo\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
+use Leo\NgRoute\PatternMatcher;
 use Leo\NgRoute\Route;
 use Psr\Http\Message\UriInterface;
 
@@ -35,12 +36,12 @@ class Plain implements DataInterface
 		}
 	}
 
-	public function findRouteByUri(UriInterface $uri): ?Route
+	public function findRouteByUri(UriInterface $uri, PatternMatcher $pattern_matcher=null): ?Route
 	{
 		foreach ($this->routes as $route)
 			if (
 				// We need uri to be matched
-				preg_match($route->matches(), $uri->getPath()) === 1 &&
+				preg_match($route->matches(pattern_matcher:$pattern_matcher), $uri->getPath()) === 1 &&
 				// And no violation of constraints ...
 				$this->checkConstraints($uri, $route)
 			)
