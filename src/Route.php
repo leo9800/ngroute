@@ -13,6 +13,7 @@ class Route
 	 * @param array<SegmentInterface> $route_segments
 	 * @param array<string>           $methods
 	 * @param RequestHandlerInterface $handler
+	 * @param ?string                 $name
 	 * @param ?string                 $host
 	 * @param ?int                    $port
 	 * @param ?string                 $scheme
@@ -21,6 +22,7 @@ class Route
 		private array $route_segments,
 		private array $methods,
 		private RequestHandlerInterface $handler,
+		private ?string $name=null,
 		private ?string $host=null,
 		private ?int $port=null,
 		private ?string $scheme=null,
@@ -76,6 +78,15 @@ class Route
 	public function getHandler(): RequestHandlerInterface
 	{
 		return $this->handler;
+	}
+
+	/**
+	 * Get endpoint name of route, name is nullable
+	 * @return ?string
+	 */
+	public function getName(): ?string
+	{
+		return $this->name;
 	}
 
 	/**

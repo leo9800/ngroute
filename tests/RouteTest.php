@@ -118,6 +118,21 @@ class RouteTest extends TestCase
 	}
 
 	/**
+	 * @testdox getName()
+	 */
+	public function testGetName(): void
+	{
+		$r = new Route(
+			route_segments:[new FixedSegment('/')],
+			methods:['GET', 'POST'],
+			handler:new DummyRequestHandler(),
+			name:'homepage'
+		);
+
+		$this->assertSame('homepage', $r->getName());
+	}
+
+	/**
 	 * @testdox getHost()
 	 */
 	public function testGetHost(): void
