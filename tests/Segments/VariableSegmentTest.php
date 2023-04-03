@@ -23,7 +23,7 @@ class VariableSegmentTest extends TestCase
 	public function testGetMatches(): void
 	{
 		$vs = new VariableSegment('param', '\d+');
-		$this->assertSame('\d+', $vs->matches());
+		$this->assertSame('(\d+)', $vs->matches());
 	}
 
 	/**
@@ -32,6 +32,6 @@ class VariableSegmentTest extends TestCase
 	public function testDefaultMatch(): void
 	{
 		$vs = new VariableSegment('param', '');
-		$this->assertSame(VariableSegment::DEFAULT_MATCH, $vs->matches());
+		$this->assertSame("(".VariableSegment::DEFAULT_MATCH.")", $vs->matches());
 	}
 }

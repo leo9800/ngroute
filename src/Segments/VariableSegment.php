@@ -24,6 +24,6 @@ class VariableSegment implements SegmentInterface
 
 	public function matches(string $delimiter = '/'): string
 	{
-		return $this->match;
+		return "($this->match)";
 	}
 }
