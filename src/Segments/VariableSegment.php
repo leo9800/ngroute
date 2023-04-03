@@ -2,6 +2,7 @@
 
 namespace Leo\NgRoute\Segments;
 
+use Leo\NgRoute\PatternMatcher;
 use Leo\NgRoute\SegmentInterface;
 
 class VariableSegment implements SegmentInterface
@@ -22,8 +23,9 @@ class VariableSegment implements SegmentInterface
 		return $this->name;
 	}
 
-	public function matches(string $delimiter = '/'): string
+	public function matches(string $delimiter='/', PatternMatcher $pattern_matcher=null): string
 	{
-		return "($this->match)";
+		$o = is_null($pattern_matcher) ? $this->match : $pattern_matcher->replace($this->match);
+		return "($o)";
 	}
 }

@@ -9,5 +9,5 @@ interface SegmentInterface
 	 * @param  string $delimiter Regex delimiter (refers to preg_quote)
 	 * @return string            Regex of segment
 	 */
-	public function matches(string $delimiter = '/'): string;
+	public function matches(string $delimiter='/', PatternMatcher $pattern_matcher=null): string;
 }
