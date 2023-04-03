@@ -13,11 +13,17 @@ class Route
 	 * @param array<SegmentInterface> $route_segments
 	 * @param array<string>           $methods
 	 * @param RequestHandlerInterface $handler
+	 * @param ?string                 $host
+	 * @param ?int                    $port
+	 * @param ?string                 $scheme
 	 */
 	public function __construct(
 		private array $route_segments,
 		private array $methods,
 		private RequestHandlerInterface $handler,
+		private ?string $host=null,
+		private ?int $port=null,
+		private ?string $scheme=null,
 	)
 	{
 		foreach ($this->route_segments as $rs)
@@ -28,38 +34,6 @@ class Route
 		$this->methods = array_values(array_unique(
 			array_map('strtoupper', $this->methods)
 		));
-	}
-
-	/**
-	 * Extract variables from URI, NULL is returned when failed matching.
-	 * @param  UriInterface         $uri Input URI
-	 * @return ?array<mixed, mixed>      Associated array of variable => value
-	 */
-	public function variablesFromUri(UriInterface $uri): ?array
-	{
-		// Return NULL if no matching
-		if (preg_match(
-			pattern:$this->matches(),
-			subject:$uri->getPath(),
-			matches:$results,
-		) !== 1)
-			return NULL;
-
-		$var = [];
-		$val = [];
-
-		foreach ($this->route_segments as $rs)
-			if ($rs instanceof VariableSegment)
-				$var[] = $rs->name();
-
-		foreach ($results as $i => $r) {
-			if ($i == 0)
-				continue;
-
-			$val[] = $r;
-		}
-
-		return array_combine($var, $val);
 	}
 
 	/**
@@ -78,6 +52,15 @@ class Route
 	}
 
 	/**
+	 * Get route segments
+	 * @return array<SegmentInterface>
+	 */
+	public function getSegments(): array
+	{
+		return $this->route_segments;
+	}
+
+	/**
 	 * Get allowed HTTP methods of route
 	 * @return array<string>
 	 */
@@ -93,5 +76,32 @@ class Route
 	public function getHandler(): RequestHandlerInterface
 	{
 		return $this->handler;
+	}
+
+	/**
+	 * Get hostname constraint of route, NULL is no constraint
+	 * @return ?string
+	 */
+	public function getHost(): ?string
+	{
+		return $this->host;
+	}
+
+	/**
+	 * Get port constraint of route, NULL is no constraint
+	 * @return ?int
+	 */
+	public function getPort(): ?int
+	{
+		return $this->port;
+	}
+
+	/**
+	 * Get scheme constraint of route, NULL is no constraint
+	 * @return ?string
+	 */
+	public function getScheme(): ?string
+	{
+		return $this->scheme;
 	}
 }

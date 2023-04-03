@@ -51,6 +51,7 @@ class RouteTest extends TestCase
 	{
 		$this->expectException(InvalidSegmentException::class);
 		new Route(
+			// @phpstan-ignore-next-line
 			route_segments:[new FixedSegment('/'), new stdClass()],
 			methods:['GET'],
 			handler:new DummyRequestHandler(),
@@ -102,66 +103,62 @@ class RouteTest extends TestCase
 	}
 
 	/**
-	 * @testdox variablesFromUri() with successful matching and variable segments
+	 * @testdox getSegments()
 	 */
-	public function testVariablesFromUri1(): void
+	public function testGetSegments(): void
 	{
+		$s = [new FixedSegment('/')];
 		$r = new Route(
-			route_segments:[
-				new FixedSegment('/fixed1/'),
-				new VariableSegment('param1', '\d+'),
-				new FixedSegment('/fixed2/'),
-				new VariableSegment('param2', '.*'),
-			],
-			methods:['GET'],
+			route_segments:$s,
+			methods:['GET', 'POST'],
 			handler:new DummyRequestHandler(),
 		);
 
-		$this->assertSame([
-			'param1' => '123',
-			'param2' => 'abc',
-		], $r->variablesFromUri(
-			new Uri('https://domain.tld/fixed1/123/fixed2/abc')
-		));
+		$this->assertSame($s, $r->getSegments());
 	}
 
 	/**
-	 * @testdox variablesFromUri() with successful matching but variable segments
+	 * @testdox getHost()
 	 */
-	public function testVariablesFromUri2(): void
+	public function testGetHost(): void
 	{
 		$r = new Route(
-			route_segments:[
-				new FixedSegment('/fixed1'),
-				new FixedSegment('/fixed2'),
-			],
-			methods:['GET'],
+			route_segments:[new FixedSegment('/')],
+			methods:['GET', 'POST'],
 			handler:new DummyRequestHandler(),
+			host:"domain.tld",
 		);
 
-		$this->assertSame([], $r->variablesFromUri(
-			new Uri('https://domain.tld/fixed1/fixed2')
-		));
+		$this->assertSame("domain.tld", $r->getHost());
 	}
 
 	/**
-	 * @testdox variablesFromUri() with failed matching
+	 * @testdox getPort()
 	 */
-	public function testFailedVariablesFromUri(): void
+	public function testGetPort(): void
 	{
 		$r = new Route(
-			route_segments:[
-				new FixedSegment('/fixed1/'),
-				new VariableSegment('param1', '\d+'),
-				new FixedSegment('/fixed2/'),
-				new VariableSegment('param2', '.*'),
-			],
-			methods:['GET'],
+			route_segments:[new FixedSegment('/')],
+			methods:['GET', 'POST'],
 			handler:new DummyRequestHandler(),
+			port:8443,
 		);
 
-		$this->assertNull($r->variablesFromUri(
-			new Uri('https://domain.tld/fixed1/not_a_number/fixed2/abc')
-		));
+		$this->assertSame(8443, $r->getPort());
+	}
+
+	/**
+	 * @testdox getScheme()
+	 */
+	public function testGetScheme(): void
+	{
+		$r = new Route(
+			route_segments:[new FixedSegment('/')],
+			methods:['GET', 'POST'],
+			handler:new DummyRequestHandler(),
+			scheme:'https',
+		);
+
+		$this->assertSame("https", $r->getScheme());
 	}
 }
