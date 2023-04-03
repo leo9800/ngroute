@@ -2,9 +2,11 @@
 
 namespace Leo\NgRoute\Parser;
 
+use Exception;
 use Leo\NgRoute\Exceptions\Parser\BracketsMismatchException;
 use Leo\NgRoute\Exceptions\Parser\EmptyRouteException;
 use Leo\NgRoute\Exceptions\Parser\OptionalSegmentInMiddleException;
+use Leo\NgRoute\Exceptions\Parser\RegexException;
 use Leo\NgRoute\ParserInterface;
 use Leo\NgRoute\SegmentInterface;
 use Leo\NgRoute\Segments\FixedSegment;
@@ -43,8 +45,10 @@ class StdParser implements ParserInterface
 			subject:$route_without_closing_optional,
 		);
 
-		// TBD: handle preg_split() returning false ...
-		assert(is_array($slices));
+		// @codeCoverageIgnoreStart
+		if ($slices === false)
+			throw new RegexException();
+		// @codeCoverageIgnoreEnd
 
 		if ($num_optionals != count($slices) - 1) {
 			// If there are any ']' in the middle of the route ...
@@ -94,8 +98,10 @@ class StdParser implements ParserInterface
 			flags:PREG_OFFSET_CAPTURE | PREG_SET_ORDER,
 		);
 
-		// TBD: $r could be false, if recursion limit has been reached ...
-		assert(is_int($r));
+		// @codeCoverageIgnoreStart
+		if ($r === false)
+			throw new RegexException();
+		// @codeCoverageIgnoreEnd
 
 		// No variable segment matched, only 1 fixed segment in this route.
 		if ($r === 0)
