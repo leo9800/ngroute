@@ -41,7 +41,6 @@ class PlainTest extends TestCase
 
 	/**
 	 * @testdox URI matching missed, return NULL
-	 * @return [type] [description]
 	 */
 	public function testUri2(): void
 	{
