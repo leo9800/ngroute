@@ -6,7 +6,8 @@
     "require-dev": {
         "phpunit/phpunit": "^10",
         "phpstan/phpstan": "^1",
-        "nyholm/psr7": "^1.5"
+        "nyholm/psr7": "^1.5",
+        "ringa/dummy-request-handler": "^1.2"
     },
     "autoload": {
         "psr-4": {
