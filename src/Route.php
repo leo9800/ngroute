@@ -40,15 +40,16 @@ class Route
 
 	/**
 	 * Get regex matched by route
-	 * @param  string $delimiter Regex delimiter
+	 * @param  string         $delimiter
+	 * @param  PatternMatcher $pattern_matcher
 	 * @return string
 	 */
-	public function matches(string $delimiter = '/'): string
+	public function matches(string $delimiter = '/', PatternMatcher $pattern_matcher = null): string
 	{
 		$regex = '';
 
 		foreach ($this->route_segments as $rs)
-			$regex .= $rs->matches($delimiter);
+			$regex .= $rs->matches($delimiter, $pattern_matcher);
 
 		return "$delimiter^$regex$$delimiter";
 	}
