@@ -3,8 +3,6 @@
 namespace Leo\NgRoute;
 
 use Leo\NgRoute\Exceptions\Route\InvalidSegmentException;
-use Leo\NgRoute\Segments\VariableSegment;
-use Psr\Http\Message\UriInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class Route
