@@ -5,10 +5,7 @@ use Leo\NgRoute\Exceptions\Route\InvalidSegmentException;
 use Leo\NgRoute\Route;
 use Leo\NgRoute\Segments\FixedSegment;
 use Leo\NgRoute\Segments\VariableSegment;
-use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
-
-use function PHPUnit\Framework\assertNull;
 
 /**
  * @testdox Leo\NgRoute\Route

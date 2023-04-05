@@ -2,7 +2,6 @@
 
 namespace Leo\NgRoute\Parser;
 
-use Exception;
 use Leo\NgRoute\Exceptions\Parser\BracketsMismatchException;
 use Leo\NgRoute\Exceptions\Parser\EmptyRouteException;
 use Leo\NgRoute\Exceptions\Parser\OptionalSegmentInMiddleException;
