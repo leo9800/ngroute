@@ -7,7 +7,8 @@
         "phpunit/phpunit": "^10",
         "phpstan/phpstan": "^1",
         "nyholm/psr7": "^1.5",
-        "ringa/dummy-request-handler": "^1.2"
+        "ringa/dummy-request-handler": "^1.2",
+        "leo/reflect-helper": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -29,6 +30,10 @@
     "repositories": [
         {
             "url": "https://github.com/Hardrain980/psr15relay.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/Hardrain980/php-reflect-helper.git",
             "type": "git"
         }
     ]
