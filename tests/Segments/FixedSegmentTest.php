@@ -9,20 +9,11 @@ use PHPUnit\Framework\TestCase;
 class FixedSegmentTest extends TestCase
 {
 	/**
-	 * @testdox Escape regex with '/' as delimiter
+	 * @testdox Escape regex
 	 */
-	public function testRegex1(): void
+	public function testRegex(): void
 	{
 		$fs = new FixedSegment('/test/+123');
 		$this->assertSame('\/test\/\+123', $fs->matches());
-	}
-
-	/**
-	 * @testdox Escape regex with '~' as delimiter
-	 */
-	public function testRegex2(): void
-	{
-		$fs = new FixedSegment('/test/~123');
-		$this->assertSame('/test/\~123', $fs->matches('~'));
 	}
 }

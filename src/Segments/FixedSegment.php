@@ -14,8 +14,8 @@ class FixedSegment implements SegmentInterface
 
 	}
 
-	public function matches(string $delimiter = '/', ?PatternMatcher $pattern_matcher = null): string
+	public function matches(?PatternMatcher $pattern_matcher = null): string
 	{
-		return preg_quote($this->string, delimiter:$delimiter);
+		return preg_quote($this->string, delimiter:'/');
 	}
 }

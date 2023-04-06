@@ -22,9 +22,10 @@ class VariableSegment implements SegmentInterface
 		return $this->name;
 	}
 
-	public function matches(string $delimiter = '/', ?PatternMatcher $pattern_matcher = null): string
+	public function matches(?PatternMatcher $pattern_matcher = null): string
 	{
 		$o = is_null($pattern_matcher) ? $this->match : $pattern_matcher->replace($this->match);
+		$o = str_replace('/', "\\/", $o);
 		return "($o)";
 	}
 }

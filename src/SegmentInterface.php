@@ -6,8 +6,8 @@ interface SegmentInterface
 {
 	/**
 	 * Return regex representation of this route segment
-	 * @param  string $delimiter Regex delimiter (refers to preg_quote)
-	 * @return string            Regex of segment
+	 * @param  PatternMatcher|null $pattern_matcher
+	 * @return string
 	 */
-	public function matches(string $delimiter='/', ?PatternMatcher $pattern_matcher=null): string;
+	public function matches(?PatternMatcher $pattern_matcher=null): string;
 }
