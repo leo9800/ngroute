@@ -36,7 +36,7 @@ class Plain implements DataInterface
 		}
 	}
 
-	public function findRouteByUri(UriInterface $uri, PatternMatcher $pattern_matcher=null): ?Route
+	public function findRouteByUri(UriInterface $uri, ?PatternMatcher $pattern_matcher=null): ?Route
 	{
 		foreach ($this->routes as $route)
 			if (
