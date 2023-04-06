@@ -1,5 +1,6 @@
 <?php
 
+use Leo\NgRoute\PatternMatcher;
 use Leo\NgRoute\Segments\VariableSegment;
 use PHPUnit\Framework\TestCase;
 
@@ -27,11 +28,14 @@ class VariableSegmentTest extends TestCase
 	}
 
 	/**
-	 * @testdox Set default matching regex if not specified
+	 * @testdox Get variable matching regex with PatternMatcher injection
 	 */
-	public function testDefaultMatch(): void
+	public function testGetMatchesWithPatternMatcher(): void
 	{
-		$vs = new VariableSegment('param', '');
-		$this->assertSame("(".VariableSegment::DEFAULT_MATCH.")", $vs->matches());
+		$pm = (new PatternMatcher())
+			->addPattern('integer', '\d+');
+
+		$vs = new VariableSegment('param', 'integer');
+		$this->assertSame('(\d+)', $vs->matches(pattern_matcher:$pm));
 	}
 }

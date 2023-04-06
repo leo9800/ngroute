@@ -14,8 +14,7 @@ class VariableSegment implements SegmentInterface
 		private string $match,
 	)
 	{
-		if (!$this->match)
-			$this->match = self::DEFAULT_MATCH;
+
 	}
 
 	public function name(): string

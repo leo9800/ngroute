@@ -121,7 +121,8 @@ class StdParser implements ParserInterface
 			// Parse the current variable segment
 			$segments[] = new VariableSegment(
 				name:$set[1][0],
-				match:trim($set[2][0] ?? ''), // use default if not specified
+				// use default if not specified
+				match:trim($set[2][0] ?? VariableSegment::DEFAULT_MATCH),
 			);
 
 			// Move offset to the end of current variable segment
