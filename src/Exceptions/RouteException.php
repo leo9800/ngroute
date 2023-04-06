@@ -2,7 +2,7 @@
 
 namespace Leo\NgRoute\Exceptions;
 
-class RouteException extends \Exception
+abstract class RouteException extends \Exception
 {
 
 }

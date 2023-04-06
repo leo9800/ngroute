@@ -2,7 +2,7 @@
 
 namespace Leo\NgRoute\Exceptions;
 
-class DataException extends \Exception
+abstract class DataException extends \Exception
 {
 
 }

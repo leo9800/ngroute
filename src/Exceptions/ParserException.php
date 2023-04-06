@@ -2,7 +2,7 @@
 
 namespace Leo\NgRoute\Exceptions;
 
-class ParserException extends \Exception
+abstract class ParserException extends \Exception
 {
 
 }
