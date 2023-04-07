@@ -5,6 +5,7 @@ use Leo\NgRoute\Data\Plain;
 use Leo\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
 use Leo\NgRoute\Route;
 use Leo\NgRoute\Segments\FixedSegment;
+use Leo\NgRoute\Segments\VariableSegment;
 use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 
@@ -81,6 +82,27 @@ class PlainTest extends TestCase
 		$p->addRoute($r2);
 
 		$this->assertNull($p->findRouteByName('t000'));
+	}
+
+	public function testParameterExtraction(): void
+	{
+		$r = new Route([
+			new FixedSegment('/user/'),
+			new VariableSegment('name', VariableSegment::DEFAULT_MATCH),
+			new FixedSegment('/post/'),
+			new VariableSegment('post_id', '\d+'),
+		], ['GET'], new DummyRequestHandler());
+		$p = new Plain();
+		$p->addRoute($r);
+
+		$this->assertSame($r, $p->findRouteByUri(
+			new Uri('https://domain.tld:8443/user/Leo/post/123'), params:$params
+		));
+
+		$this->assertSame([
+			'name' => 'Leo',
+			'post_id' => '123',
+		], $params);
 	}
 
 	public function testHostnameConstraintChecking(): void

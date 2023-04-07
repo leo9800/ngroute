@@ -19,11 +19,12 @@ interface DataInterface
 	 */
 	/**
 	 * Find route by given URI, NULL is returned when no matching
-	 * @param  UriInterface        $uri
-	 * @param  PatternMatcher|null $pattern_matcher
+	 * @param  UriInterface              $uri
+	 * @param  PatternMatcher|null       $pattern_matcher
+	 * @param  array<string,string>|null &$params
 	 * @return Route|null
 	 */
-	public function findRouteByUri(UriInterface $uri, ?PatternMatcher $pattern_matcher=null): ?Route;
+	public function findRouteByUri(UriInterface $uri, ?PatternMatcher $pattern_matcher=null, ?array &$params = null): ?Route;
 
 	/**
 	 * Get route by endpoint name, NULL is returned when no matching
