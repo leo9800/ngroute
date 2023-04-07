@@ -16,4 +16,13 @@ class FixedSegmentTest extends TestCase
 		$fs = new FixedSegment('/test/+123');
 		$this->assertSame('\/test\/\+123', $fs->matches());
 	}
+
+	/**
+	 * @testdox __toString()
+	 */
+	public function testString(): void
+	{
+		$fs = new FixedSegment('/test/+123');
+		$this->assertSame('/test/+123', (string) $fs);
+	}
 }

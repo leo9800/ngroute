@@ -38,4 +38,13 @@ class VariableSegmentTest extends TestCase
 		$vs = new VariableSegment('param', 'integer');
 		$this->assertSame('(\d+)', $vs->matches(pattern_matcher:$pm));
 	}
+
+	/**
+	 * @testdox __toString()
+	 */
+	public function testString(): void
+	{
+		$vs = new VariableSegment('param', '\d+');
+		$this->assertSame('{param:\d+}', (string) $vs);
+	}
 }

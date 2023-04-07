@@ -2,7 +2,7 @@
 
 namespace Leo\NgRoute;
 
-interface SegmentInterface
+interface SegmentInterface extends \Stringable
 {
 	/**
 	 * Return regex representation of this route segment

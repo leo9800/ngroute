@@ -17,6 +17,11 @@ class VariableSegment implements SegmentInterface
 
 	}
 
+	public function __toString(): string
+	{
+		return sprintf("{%s:%s}", $this->name, $this->match);
+	}
+
 	public function name(): string
 	{
 		return $this->name;
