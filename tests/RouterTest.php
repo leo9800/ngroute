@@ -1,6 +1,7 @@
 <?php
 
 use Leo\Fixtures\DummyRequestHandler;
+use Leo\NgRoute\Constraint;
 use Leo\NgRoute\Data\Plain;
 use Leo\NgRoute\Exceptions\Router\MethodMismatchException;
 use Leo\NgRoute\Exceptions\Router\MissingParameterException;
@@ -19,55 +20,22 @@ use function Leo\ReflectHelper\reflect_property;
  */
 class RouterTest extends TestCase
 {
-	public function testHostConstraint(): void
+	public function testSetGlobalConstraint(): void
 	{
-		$r1 = new Router(
+		$c = new Constraint(scheme:'https', host:'domain.tld', port:8443);
+		$r = new Router(
 			new StdParser(),
 			new Plain(),
-			host:'domain.tld',
+			constraints:[$c],
 		);
 
-		$r2 = new Router(
-			new StdParser(),
-			new Plain(),
-		);
-
-		$this->assertSame('domain.tld', reflect_property($r1, 'host'));
-		$this->assertNull(reflect_property($r2, 'host'));
+		$this->assertIsArray(reflect_property($r, 'constraints'));
+		$this->assertSame($c, reflect_property($r, 'constraints')[0]);
 	}
 
-	public function testPortConstraint(): void
+	public function testOverrideGlobalConstraint(): void
 	{
-		$r1 = new Router(
-			new StdParser(),
-			new Plain(),
-			port:8443,
-		);
 
-		$r2 = new Router(
-			new StdParser(),
-			new Plain(),
-		);
-
-		$this->assertSame(8443, reflect_property($r1, 'port'));
-		$this->assertNull(reflect_property($r2, 'port'));
-	}
-
-	public function testSchemeConstraint(): void
-	{
-		$r1 = new Router(
-			new StdParser(),
-			new Plain(),
-			scheme:'https',
-		);
-
-		$r2 = new Router(
-			new StdParser(),
-			new Plain(),
-		);
-
-		$this->assertSame('https', reflect_property($r1, 'scheme'));
-		$this->assertNull(reflect_property($r2, 'scheme'));
 	}
 
 	public function testRoutingFixedRoute(): void
@@ -154,21 +122,6 @@ class RouterTest extends TestCase
 		))->addRoute(['GET'], '/user/{name}', new DummyRequestHandler(), 'user');
 
 		$r->endpointUri('user', ['nonsense' => 'Leo']);
-	}
-
-	public function testGetUriFromNameWithConstraints(): void
-	{
-		$r = (new Router(
-			new StdParser(),
-			new Plain(),
-			scheme:'https',
-			host:'domain.tld',
-			port:8443,
-		))->addRoute(['GET'], '/', new DummyRequestHandler(), 'home');
-
-		$uri = $r->endpointUri('home', []);
-
-		$this->assertEquals(new Uri('https://domain.tld:8443/'), $uri);
 	}
 
 	public function testGetUriFromNonExistName(): void

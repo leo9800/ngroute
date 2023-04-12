@@ -12,18 +12,14 @@ class Route
 	 * @param array<string>           $methods
 	 * @param RequestHandlerInterface $handler
 	 * @param ?string                 $name
-	 * @param ?string                 $host
-	 * @param ?int                    $port
-	 * @param ?string                 $scheme
+	 * @param array<Constraint>       $constraints
 	 */
 	public function __construct(
 		private array $route_segments,
 		private array $methods,
 		private RequestHandlerInterface $handler,
 		private ?string $name=null,
-		private ?string $host=null,
-		private ?int $port=null,
-		private ?string $scheme=null,
+		private array $constraints = [],
 	)
 	{
 		foreach ($this->route_segments as $rs)
@@ -88,29 +84,11 @@ class Route
 	}
 
 	/**
-	 * Get hostname constraint of route, NULL is no constraint
-	 * @return ?string
+	 * Get allowed host, port and scheme constraints of route.
+	 * @return array<Constraint>
 	 */
-	public function getHost(): ?string
+	public function getConstraints(): array
 	{
-		return $this->host;
-	}
-
-	/**
-	 * Get port constraint of route, NULL is no constraint
-	 * @return ?int
-	 */
-	public function getPort(): ?int
-	{
-		return $this->port;
-	}
-
-	/**
-	 * Get scheme constraint of route, NULL is no constraint
-	 * @return ?string
-	 */
-	public function getScheme(): ?string
-	{
-		return $this->scheme;
+		return $this->constraints;
 	}
 }

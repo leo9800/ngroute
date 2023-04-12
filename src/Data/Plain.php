@@ -69,15 +69,18 @@ class Plain implements DataInterface
 
 	private function checkConstraints(UriInterface $uri, Route $route): bool
 	{
-		if ($route->getHost() !== null && $route->getHost() !== $uri->getHost())
-			return false;
+		if ($route->getConstraints() === [])
+			return true;
 
-		if ($route->getPort() !== null && $route->getPort() !== $uri->getPort())
-			return false;
+		foreach ($route->getConstraints() as $c) {
+			if (
+				($c->host === null || $c->host === $uri->getHost()) &&
+				($c->port === null || $c->port === $uri->getPort()) &&
+				($c->scheme === null || $c->scheme === $uri->getScheme())
+			)
+				return true;
+		}
 
-		if ($route->getScheme() !== null && $route->getScheme() !== $uri->getScheme())
-			return false;
-
-		return true;
+		return false;
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Leo\Fixtures\DummyRequestHandler;
+use Leo\NgRoute\Constraint;
 use Leo\NgRoute\Exceptions\Route\InvalidSegmentException;
 use Leo\NgRoute\Route;
 use Leo\NgRoute\Segments\FixedSegment;
@@ -129,48 +130,20 @@ class RouteTest extends TestCase
 		$this->assertSame('homepage', $r->getName());
 	}
 
-	/**
-	 * @testdox getHost()
-	 */
-	public function testGetHost(): void
+	public function getConstaints(): void
 	{
+		$c = [
+			new Constraint(host:'domain.tld'),
+			new Constraint(host:'admin.domain.tld', scheme:'https'),
+		];
+
 		$r = new Route(
 			route_segments:[new FixedSegment('/')],
 			methods:['GET', 'POST'],
 			handler:new DummyRequestHandler(),
-			host:"domain.tld",
+			constraints:$c,
 		);
 
-		$this->assertSame("domain.tld", $r->getHost());
-	}
-
-	/**
-	 * @testdox getPort()
-	 */
-	public function testGetPort(): void
-	{
-		$r = new Route(
-			route_segments:[new FixedSegment('/')],
-			methods:['GET', 'POST'],
-			handler:new DummyRequestHandler(),
-			port:8443,
-		);
-
-		$this->assertSame(8443, $r->getPort());
-	}
-
-	/**
-	 * @testdox getScheme()
-	 */
-	public function testGetScheme(): void
-	{
-		$r = new Route(
-			route_segments:[new FixedSegment('/')],
-			methods:['GET', 'POST'],
-			handler:new DummyRequestHandler(),
-			scheme:'https',
-		);
-
-		$this->assertSame("https", $r->getScheme());
+		$this->assertSame($c, $r->getConstraints());
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Leo\Fixtures\DummyRequestHandler;
+use Leo\NgRoute\Constraint;
 use Leo\NgRoute\Data\Plain;
 use Leo\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
 use Leo\NgRoute\Route;
@@ -105,9 +106,30 @@ class PlainTest extends TestCase
 		], $params);
 	}
 
+	public function testNullConstraintChecking(): void
+	{
+		$r = new Route(
+			[new FixedSegment('/')],
+			[],
+			new DummyRequestHandler(),
+			constraints:[new Constraint()],
+		);
+		$p = new Plain();
+		$p->addRoute($r);
+
+		$this->assertNotNull($p->findRouteByUri(
+			new Uri('https://domain.tld/')
+		));
+	}
+
 	public function testHostnameConstraintChecking(): void
 	{
-		$r = new Route([new FixedSegment('/')], [], new DummyRequestHandler(), host:"domain.tld");
+		$r = new Route(
+			[new FixedSegment('/')],
+			[],
+			new DummyRequestHandler(),
+			constraints:[new Constraint(host:'domain.tld')],
+		);
 		$p = new Plain();
 		$p->addRoute($r);
 
@@ -118,7 +140,12 @@ class PlainTest extends TestCase
 
 	public function testPortConstraintChecking(): void
 	{
-		$r = new Route([new FixedSegment('/')], [], new DummyRequestHandler(), port:443);
+		$r = new Route(
+			[new FixedSegment('/')],
+			[],
+			new DummyRequestHandler(),
+			constraints:[new Constraint(port:443)],
+		);
 		$p = new Plain();
 		$p->addRoute($r);
 
@@ -129,7 +156,12 @@ class PlainTest extends TestCase
 
 	public function testSchemeConstraintChecking(): void
 	{
-		$r = new Route([new FixedSegment('/')], [], new DummyRequestHandler(), scheme:'https');
+		$r = new Route(
+			[new FixedSegment('/')],
+			[],
+			new DummyRequestHandler(),
+			constraints:[new Constraint(scheme:'https')],
+		);
 		$p = new Plain();
 		$p->addRoute($r);
 

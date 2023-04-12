@@ -7,23 +7,31 @@ use Leo\NgRoute\Exceptions\Router\MissingParameterException;
 use Leo\NgRoute\Exceptions\Router\NoMatchingRouteException;
 use Leo\NgRoute\Segments\FixedSegment;
 use Leo\NgRoute\Segments\VariableSegment;
+use Leo\Psr15Relay\Relay;
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class Router implements RequestHandlerInterface
 {
 	private const PARAMS_ATTRIBUTE = 'NGROUTE_PARAMS';
 
+	/**
+	 * @param ParserInterface            $parser
+	 * @param DataInterface              $data
+	 * @param PatternMatcher|null        $pattern_matcher
+	 * @param array<MiddlewareInterface> $middlewares
+	 * @param array<Constraint>          $constraints
+	 */
 	public function __construct(
 		private ParserInterface $parser,
 		private DataInterface $data,
 		private ?PatternMatcher $pattern_matcher = null,
-		private string|null $host = null,
-		private int|null $port = null,
-		private string|null $scheme = null,
+		private array $middlewares = [],
+		private array $constraints = [],
 	)
 	{
 
@@ -31,28 +39,29 @@ class Router implements RequestHandlerInterface
 
 	/**
 	 * Add route to router
-	 * @param array<string>           $methods
-	 * @param string                  $path
-	 * @param RequestHandlerInterface $handler
-	 * @param string|null             $name
+	 * @param array<string>                   $methods
+	 * @param string                          $path
+	 * @param RequestHandlerInterface         $handler
+	 * @param string|null                     $name
+	 * @param array<MiddlewareInterface>|null $override_middlewares
+	 * @param array<Constraint>|null          $override_constraints
 	 */
 	public function addRoute(
 		array $methods,
 		string $path,
 		RequestHandlerInterface $handler,
-		string|null $name = null
-		// TBD: override
+		string|null $name = null,
+		?array $override_middlewares = null,
+		?array $override_constraints = null,
 	): self
 	{
 		foreach ($this->parser->parse($path) as $s) {
 			$this->data->addRoute(new Route(
 				route_segments:$s,
 				methods:$methods,
-				handler:$handler,
+				handler:new Relay([...($override_middlewares ?? $this->middlewares), $handler]),
 				name:$name,
-				host:$this->host,
-				port:$this->port,
-				scheme:$this->scheme,
+				constraints:$override_constraints ?? $this->constraints,
 			));
 		}
 
@@ -70,17 +79,6 @@ class Router implements RequestHandlerInterface
 		if (null === $route = $this->data->findRouteByName($endpoint))
 			return null;
 
-		$uri = new Uri();
-
-		if (null !== $route->getScheme())
-			$uri = $uri->withScheme($route->getScheme());
-
-		if (null !== $route->getHost())
-			$uri = $uri->withHost($route->getHost());
-
-		if (null !== $route->getPort())
-			$uri = $uri->withPort($route->getPort());
-
 		$path = "";
 
 		foreach ($route->getSegments() as $seg) {
@@ -95,7 +93,7 @@ class Router implements RequestHandlerInterface
 			}
 		}
 
-		return $uri->withPath($path);
+		return (new Uri())->withPath($path);
 	}
 
 	public function handle(ServerRequestInterface $request): ResponseInterface
