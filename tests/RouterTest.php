@@ -1,22 +1,22 @@
 <?php
 
-use Leo\Fixtures\DummyRequestHandler;
-use Leo\NgRoute\Constraint;
-use Leo\NgRoute\Data\Plain;
-use Leo\NgRoute\Exceptions\Router\MethodMismatchException;
-use Leo\NgRoute\Exceptions\Router\MissingParameterException;
-use Leo\NgRoute\Exceptions\Router\NoMatchingRouteException;
-use Leo\NgRoute\Parser\StdParser;
-use Leo\NgRoute\Router;
+use Leo980\RequestHandlerFixture\RequestHandler;
+use Leo980\NgRoute\Constraint;
+use Leo980\NgRoute\Data\Plain;
+use Leo980\NgRoute\Exceptions\Router\MethodMismatchException;
+use Leo980\NgRoute\Exceptions\Router\MissingParameterException;
+use Leo980\NgRoute\Exceptions\Router\NoMatchingRouteException;
+use Leo980\NgRoute\Parser\StdParser;
+use Leo980\NgRoute\Router;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-use function Leo\ReflectHelper\reflect_property;
+use function Leo980\Reflector\reflect_get_property;
 
 /**
- * @testdox Leo\NgRoute\Router
+ * @testdox Leo980\NgRoute\Router
  */
 class RouterTest extends TestCase
 {
@@ -29,8 +29,8 @@ class RouterTest extends TestCase
 			constraints:[$c],
 		);
 
-		$this->assertIsArray(reflect_property($r, 'constraints'));
-		$this->assertSame($c, reflect_property($r, 'constraints')[0]);
+		$this->assertIsArray(reflect_get_property($r, 'constraints'));
+		$this->assertSame($c, reflect_get_property($r, 'constraints')[0]);
 	}
 
 	public function testOverrideGlobalConstraint(): void
@@ -43,7 +43,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/', new DummyRequestHandler(), 'home');
+		))->addRoute(['GET'], '/', new RequestHandler(), 'home');
 
 		$this->assertInstanceOf(ResponseInterface::class, $r->handle(
 			new ServerRequest('GET', new Uri("https://domain.tld/"))
@@ -57,7 +57,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/', new DummyRequestHandler(), 'home');
+		))->addRoute(['GET'], '/', new RequestHandler(), 'home');
 		$r->handle(
 			new ServerRequest('GET', new Uri("https://domain.tld/some-page"))
 		);
@@ -70,7 +70,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/', new DummyRequestHandler(), 'home');
+		))->addRoute(['GET'], '/', new RequestHandler(), 'home');
 		$r->handle(
 			new ServerRequest('PUT', new Uri("https://domain.tld/"))
 		);
@@ -81,7 +81,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/user/{name}', new DummyRequestHandler(), 'user');
+		))->addRoute(['GET'], '/user/{name}', new RequestHandler(), 'user');
 
 		$this->assertInstanceOf(ResponseInterface::class, $r->handle(
 			new ServerRequest('GET', new Uri("https://domain.tld/user/Leo"))
@@ -93,7 +93,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/', new DummyRequestHandler(), 'home');
+		))->addRoute(['GET'], '/', new RequestHandler(), 'home');
 
 		$uri = $r->endpointUri('home', []);
 
@@ -105,7 +105,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/user/{name}', new DummyRequestHandler(), 'user');
+		))->addRoute(['GET'], '/user/{name}', new RequestHandler(), 'user');
 
 		$uri = $r->endpointUri('user', ['name' => 'Leo']);
 
@@ -119,7 +119,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/user/{name}', new DummyRequestHandler(), 'user');
+		))->addRoute(['GET'], '/user/{name}', new RequestHandler(), 'user');
 
 		$r->endpointUri('user', ['nonsense' => 'Leo']);
 	}
@@ -129,7 +129,7 @@ class RouterTest extends TestCase
 		$r = (new Router(
 			new StdParser(),
 			new Plain(),
-		))->addRoute(['GET'], '/', new DummyRequestHandler(), 'home');
+		))->addRoute(['GET'], '/', new RequestHandler(), 'home');
 
 		$uri = $r->endpointUri('some-page', []);
 

@@ -1,17 +1,17 @@
 <?php
 
-use Leo\Fixtures\DummyRequestHandler;
-use Leo\NgRoute\Constraint;
-use Leo\NgRoute\Data\Plain;
-use Leo\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
-use Leo\NgRoute\Route;
-use Leo\NgRoute\Segments\FixedSegment;
-use Leo\NgRoute\Segments\VariableSegment;
+use Leo980\RequestHandlerFixture\RequestHandler;
+use Leo980\NgRoute\Constraint;
+use Leo980\NgRoute\Data\Plain;
+use Leo980\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
+use Leo980\NgRoute\Route;
+use Leo980\NgRoute\Segments\FixedSegment;
+use Leo980\NgRoute\Segments\VariableSegment;
 use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @testdox Leo\NgRoute\Data\Plain
+ * @testdox Leo980\NgRoute\Data\Plain
  */
 class PlainTest extends TestCase
 {
@@ -21,8 +21,8 @@ class PlainTest extends TestCase
 
 		$p = new Plain();
 
-		$p->addRoute(new Route([], [], new DummyRequestHandler(), "Test123"));
-		$p->addRoute(new Route([], [], new DummyRequestHandler(), "Test123"));
+		$p->addRoute(new Route([], [], new RequestHandler(), "Test123"));
+		$p->addRoute(new Route([], [], new RequestHandler(), "Test123"));
 	}
 
 	/**
@@ -30,8 +30,8 @@ class PlainTest extends TestCase
 	 */
 	public function testUri1(): void
 	{
-		$r1 = new Route([new FixedSegment('/test123')], [], new DummyRequestHandler());
-		$r2 = new Route([new FixedSegment('/test456')], [], new DummyRequestHandler());
+		$r1 = new Route([new FixedSegment('/test123')], [], new RequestHandler());
+		$r2 = new Route([new FixedSegment('/test456')], [], new RequestHandler());
 		$p = new Plain();
 		$p->addRoute($r1);
 		$p->addRoute($r2);
@@ -46,8 +46,8 @@ class PlainTest extends TestCase
 	 */
 	public function testUri2(): void
 	{
-		$r1 = new Route([new FixedSegment('/test123')], [], new DummyRequestHandler());
-		$r2 = new Route([new FixedSegment('/test456')], [], new DummyRequestHandler());
+		$r1 = new Route([new FixedSegment('/test123')], [], new RequestHandler());
+		$r2 = new Route([new FixedSegment('/test456')], [], new RequestHandler());
 		$p = new Plain();
 		$p->addRoute($r1);
 		$p->addRoute($r2);
@@ -62,8 +62,8 @@ class PlainTest extends TestCase
 	 */
 	public function testName1(): void
 	{
-		$r1 = new Route([new FixedSegment('/test123')], [], new DummyRequestHandler(), "t123");
-		$r2 = new Route([new FixedSegment('/test456')], [], new DummyRequestHandler());
+		$r1 = new Route([new FixedSegment('/test123')], [], new RequestHandler(), "t123");
+		$r2 = new Route([new FixedSegment('/test456')], [], new RequestHandler());
 		$p = new Plain();
 		$p->addRoute($r1);
 		$p->addRoute($r2);
@@ -76,8 +76,8 @@ class PlainTest extends TestCase
 	 */
 	public function testName2(): void
 	{
-		$r1 = new Route([new FixedSegment('/test123')], [], new DummyRequestHandler(), "t123");
-		$r2 = new Route([new FixedSegment('/test456')], [], new DummyRequestHandler());
+		$r1 = new Route([new FixedSegment('/test123')], [], new RequestHandler(), "t123");
+		$r2 = new Route([new FixedSegment('/test456')], [], new RequestHandler());
 		$p = new Plain();
 		$p->addRoute($r1);
 		$p->addRoute($r2);
@@ -92,7 +92,7 @@ class PlainTest extends TestCase
 			new VariableSegment('name', VariableSegment::DEFAULT_MATCH),
 			new FixedSegment('/post/'),
 			new VariableSegment('post_id', '\d+'),
-		], ['GET'], new DummyRequestHandler());
+		], ['GET'], new RequestHandler());
 		$p = new Plain();
 		$p->addRoute($r);
 
@@ -111,7 +111,7 @@ class PlainTest extends TestCase
 		$r = new Route(
 			[new FixedSegment('/')],
 			[],
-			new DummyRequestHandler(),
+			new RequestHandler(),
 			constraints:[new Constraint()],
 		);
 		$p = new Plain();
@@ -127,7 +127,7 @@ class PlainTest extends TestCase
 		$r = new Route(
 			[new FixedSegment('/')],
 			[],
-			new DummyRequestHandler(),
+			new RequestHandler(),
 			constraints:[new Constraint(host:'domain.tld')],
 		);
 		$p = new Plain();
@@ -143,7 +143,7 @@ class PlainTest extends TestCase
 		$r = new Route(
 			[new FixedSegment('/')],
 			[],
-			new DummyRequestHandler(),
+			new RequestHandler(),
 			constraints:[new Constraint(port:443)],
 		);
 		$p = new Plain();
@@ -159,7 +159,7 @@ class PlainTest extends TestCase
 		$r = new Route(
 			[new FixedSegment('/')],
 			[],
-			new DummyRequestHandler(),
+			new RequestHandler(),
 			constraints:[new Constraint(scheme:'https')],
 		);
 		$p = new Plain();

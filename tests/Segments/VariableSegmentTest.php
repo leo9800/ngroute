@@ -1,11 +1,11 @@
 <?php
 
-use Leo\NgRoute\PatternMatcher;
-use Leo\NgRoute\Segments\VariableSegment;
+use Leo980\NgRoute\PatternMatcher;
+use Leo980\NgRoute\Segments\VariableSegment;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @testdox Leo\NgRoute\Segments\VariableSegment
+ * @testdox Leo980\NgRoute\Segments\VariableSegment
  */
 class VariableSegmentTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Leo\NgRoute;
+namespace Leo980\NgRoute;
 
 // @codeCoverageIgnoreStart
 readonly class Constraint

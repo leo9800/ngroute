@@ -1,8 +1,8 @@
 <?php
 
-namespace Leo\NgRoute\Exceptions\Data;
+namespace Leo980\NgRoute\Exceptions\Data;
 
-use Leo\NgRoute\Exceptions\DataException;
+use Leo980\NgRoute\Exceptions\DataException;
 
 class DuplicatedRouteNameException extends DataException
 {

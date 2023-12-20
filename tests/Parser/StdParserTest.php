@@ -1,15 +1,15 @@
 <?php
 
-use Leo\NgRoute\Exceptions\Parser\BracketsMismatchException;
-use Leo\NgRoute\Exceptions\Parser\EmptyRouteException;
-use Leo\NgRoute\Exceptions\Parser\OptionalSegmentInMiddleException;
-use Leo\NgRoute\Parser\StdParser;
-use Leo\NgRoute\Segments\FixedSegment;
-use Leo\NgRoute\Segments\VariableSegment;
+use Leo980\NgRoute\Exceptions\Parser\BracketsMismatchException;
+use Leo980\NgRoute\Exceptions\Parser\EmptyRouteException;
+use Leo980\NgRoute\Exceptions\Parser\OptionalSegmentInMiddleException;
+use Leo980\NgRoute\Parser\StdParser;
+use Leo980\NgRoute\Segments\FixedSegment;
+use Leo980\NgRoute\Segments\VariableSegment;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @testdox Leo\NgRoute\Parser\StdParser
+ * @testdox Leo980\NgRoute\Parser\StdParser
  */
 class StdParserTest extends TestCase
 {

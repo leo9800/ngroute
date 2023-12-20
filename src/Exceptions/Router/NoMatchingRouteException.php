@@ -1,8 +1,8 @@
 <?php
 
-namespace Leo\NgRoute\Exceptions\Router;
+namespace Leo980\NgRoute\Exceptions\Router;
 
-use Leo\NgRoute\Exceptions\RouterException;
+use Leo980\NgRoute\Exceptions\RouterException;
 
 class NoMatchingRouteException extends RouterException
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Leo\NgRoute\Segments;
+namespace Leo980\NgRoute\Segments;
 
-use Leo\NgRoute\PatternMatcher;
-use Leo\NgRoute\SegmentInterface;
+use Leo980\NgRoute\PatternMatcher;
+use Leo980\NgRoute\SegmentInterface;
 
 class VariableSegment implements SegmentInterface
 {

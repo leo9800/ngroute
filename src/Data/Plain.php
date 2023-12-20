@@ -1,12 +1,12 @@
 <?php
 
-namespace Leo\NgRoute\Data;
+namespace Leo980\NgRoute\Data;
 
-use Leo\NgRoute\DataInterface;
-use Leo\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
-use Leo\NgRoute\PatternMatcher;
-use Leo\NgRoute\Route;
-use Leo\NgRoute\Segments\VariableSegment;
+use Leo980\NgRoute\DataInterface;
+use Leo980\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
+use Leo980\NgRoute\PatternMatcher;
+use Leo980\NgRoute\Route;
+use Leo980\NgRoute\Segments\VariableSegment;
 use Psr\Http\Message\UriInterface;
 
 class Plain implements DataInterface

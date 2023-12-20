@@ -1,10 +1,10 @@
 <?php
 
-use Leo\NgRoute\PatternMatcher;
+use Leo980\NgRoute\PatternMatcher;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @testdox Leo\NgRoute\PatternMatcher
+ * @testdox Leo980\NgRoute\PatternMatcher
  */
 class PatternMatcherTest extends TestCase
 {

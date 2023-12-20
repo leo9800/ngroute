@@ -1,8 +1,8 @@
 <?php
 
-namespace Leo\NgRoute\Exceptions\Route;
+namespace Leo980\NgRoute\Exceptions\Route;
 
-use Leo\NgRoute\Exceptions\RouteException;
+use Leo980\NgRoute\Exceptions\RouteException;
 
 class InvalidSegmentException extends RouteException
 {

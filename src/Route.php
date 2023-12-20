@@ -1,8 +1,8 @@
 <?php
 
-namespace Leo\NgRoute;
+namespace Leo980\NgRoute;
 
-use Leo\NgRoute\Exceptions\Route\InvalidSegmentException;
+use Leo980\NgRoute\Exceptions\Route\InvalidSegmentException;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class Route
