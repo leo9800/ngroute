@@ -30,6 +30,7 @@ class Router implements RequestHandlerInterface
 		private ParserInterface $parser,
 		private DataInterface $data,
 		private ?PatternMatcher $pattern_matcher = null,
+		private string $prefix = '',
 		private array $middlewares = [],
 		private array $constraints = [],
 	)
@@ -55,9 +56,9 @@ class Router implements RequestHandlerInterface
 		?array $override_constraints = null,
 	): self
 	{
-		foreach ($this->parser->parse($path) as $s) {
+		foreach ($this->parser->parse($this->prefix.$path) as $s) {
 			$this->data->addRoute(new Route(
-				route_segments:$s,
+				route_segments: [...$s],
 				methods:$methods,
 				handler:new Relay([...($override_middlewares ?? $this->middlewares), $handler]),
 				name:$name,

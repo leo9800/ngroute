@@ -88,6 +88,19 @@ class RouterTest extends TestCase
 		));
 	}
 
+	public function testRoutingWithPrefix(): void
+	{
+		$r = (new Router(
+			new StdParser(),
+			new Plain(),
+			prefix:'/some/prefix',
+		))->addRoute(['GET'], '/user/{name}', new RequestHandler(), 'user');
+
+		$this->assertInstanceOf(ResponseInterface::class, $r->handle(
+			new ServerRequest('GET', new Uri("https://domain.tld/some/prefix/user/Leo"))
+		));
+	}
+
 	public function testGetUriFromName(): void
 	{
 		$r = (new Router(
@@ -110,6 +123,19 @@ class RouterTest extends TestCase
 		$uri = $r->endpointUri('user', ['name' => 'Leo']);
 
 		$this->assertEquals(new Uri('/user/Leo'), $uri);
+	}
+
+	public function testGetUriFromNameWithPrefix(): void
+	{
+		$r = (new Router(
+			new StdParser(),
+			new Plain(),
+			prefix:'/some/prefix',
+		))->addRoute(['GET'], '/user/{name}', new RequestHandler(), 'user');
+
+		$uri = $r->endpointUri('user', ['name' => 'Leo']);
+
+		$this->assertEquals(new Uri('/some/prefix/user/Leo'), $uri);
 	}
 
 	public function testGetUriFromNameWithAbsentParams(): void
