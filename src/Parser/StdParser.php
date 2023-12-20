@@ -1,15 +1,15 @@
 <?php
 
-namespace Leo\NgRoute\Parser;
+namespace Leo980\NgRoute\Parser;
 
-use Leo\NgRoute\Exceptions\Parser\BracketsMismatchException;
-use Leo\NgRoute\Exceptions\Parser\EmptyRouteException;
-use Leo\NgRoute\Exceptions\Parser\OptionalSegmentInMiddleException;
-use Leo\NgRoute\Exceptions\Parser\RegexException;
-use Leo\NgRoute\ParserInterface;
-use Leo\NgRoute\SegmentInterface;
-use Leo\NgRoute\Segments\FixedSegment;
-use Leo\NgRoute\Segments\VariableSegment;
+use Leo980\NgRoute\Exceptions\Parser\BracketsMismatchException;
+use Leo980\NgRoute\Exceptions\Parser\EmptyRouteException;
+use Leo980\NgRoute\Exceptions\Parser\OptionalSegmentInMiddleException;
+use Leo980\NgRoute\Exceptions\Parser\RegexException;
+use Leo980\NgRoute\ParserInterface;
+use Leo980\NgRoute\SegmentInterface;
+use Leo980\NgRoute\Segments\FixedSegment;
+use Leo980\NgRoute\Segments\VariableSegment;
 
 class StdParser implements ParserInterface
 {

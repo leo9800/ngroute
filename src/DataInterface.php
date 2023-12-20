@@ -1,6 +1,6 @@
 <?php
 
-namespace Leo\NgRoute;
+namespace Leo980\NgRoute;
 
 use Psr\Http\Message\UriInterface;
 

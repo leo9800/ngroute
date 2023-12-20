@@ -1,15 +1,15 @@
 <?php
 
-use Leo\Fixtures\DummyRequestHandler;
-use Leo\NgRoute\Constraint;
-use Leo\NgRoute\Exceptions\Route\InvalidSegmentException;
-use Leo\NgRoute\Route;
-use Leo\NgRoute\Segments\FixedSegment;
-use Leo\NgRoute\Segments\VariableSegment;
+use Leo980\Fixtures\DummyRequestHandler;
+use Leo980\NgRoute\Constraint;
+use Leo980\NgRoute\Exceptions\Route\InvalidSegmentException;
+use Leo980\NgRoute\Route;
+use Leo980\NgRoute\Segments\FixedSegment;
+use Leo980\NgRoute\Segments\VariableSegment;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @testdox Leo\NgRoute\Route
+ * @testdox Leo980\NgRoute\Route
  */
 class RouteTest extends TestCase
 {

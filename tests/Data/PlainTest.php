@@ -1,17 +1,17 @@
 <?php
 
-use Leo\Fixtures\DummyRequestHandler;
-use Leo\NgRoute\Constraint;
-use Leo\NgRoute\Data\Plain;
-use Leo\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
-use Leo\NgRoute\Route;
-use Leo\NgRoute\Segments\FixedSegment;
-use Leo\NgRoute\Segments\VariableSegment;
+use Leo980\Fixtures\DummyRequestHandler;
+use Leo980\NgRoute\Constraint;
+use Leo980\NgRoute\Data\Plain;
+use Leo980\NgRoute\Exceptions\Data\DuplicatedRouteNameException;
+use Leo980\NgRoute\Route;
+use Leo980\NgRoute\Segments\FixedSegment;
+use Leo980\NgRoute\Segments\VariableSegment;
 use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @testdox Leo\NgRoute\Data\Plain
+ * @testdox Leo980\NgRoute\Data\Plain
  */
 class PlainTest extends TestCase
 {

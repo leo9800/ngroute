@@ -1,10 +1,10 @@
 <?php
 
-use Leo\NgRoute\Segments\FixedSegment;
+use Leo980\NgRoute\Segments\FixedSegment;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @testdox Leo\NgRoute\Segments\FixedSegment
+ * @testdox Leo980\NgRoute\Segments\FixedSegment
  */
 class FixedSegmentTest extends TestCase
 {

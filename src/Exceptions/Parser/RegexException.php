@@ -1,8 +1,8 @@
 <?php
 
-namespace Leo\NgRoute\Exceptions\Parser;
+namespace Leo980\NgRoute\Exceptions\Parser;
 
-use Leo\NgRoute\Exceptions\ParserException;
+use Leo980\NgRoute\Exceptions\ParserException;
 
 class RegexException extends ParserException
 {

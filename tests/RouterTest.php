@@ -1,22 +1,22 @@
 <?php
 
-use Leo\Fixtures\DummyRequestHandler;
-use Leo\NgRoute\Constraint;
-use Leo\NgRoute\Data\Plain;
-use Leo\NgRoute\Exceptions\Router\MethodMismatchException;
-use Leo\NgRoute\Exceptions\Router\MissingParameterException;
-use Leo\NgRoute\Exceptions\Router\NoMatchingRouteException;
-use Leo\NgRoute\Parser\StdParser;
-use Leo\NgRoute\Router;
+use Leo980\Fixtures\DummyRequestHandler;
+use Leo980\NgRoute\Constraint;
+use Leo980\NgRoute\Data\Plain;
+use Leo980\NgRoute\Exceptions\Router\MethodMismatchException;
+use Leo980\NgRoute\Exceptions\Router\MissingParameterException;
+use Leo980\NgRoute\Exceptions\Router\NoMatchingRouteException;
+use Leo980\NgRoute\Parser\StdParser;
+use Leo980\NgRoute\Router;
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-use function Leo\ReflectHelper\reflect_property;
+use function Leo980\ReflectHelper\reflect_property;
 
 /**
- * @testdox Leo\NgRoute\Router
+ * @testdox Leo980\NgRoute\Router
  */
 class RouterTest extends TestCase
 {

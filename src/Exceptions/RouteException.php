@@ -1,6 +1,6 @@
 <?php
 
-namespace Leo\NgRoute\Exceptions;
+namespace Leo980\NgRoute\Exceptions;
 
 abstract class RouteException extends \Exception
 {
