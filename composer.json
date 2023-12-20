@@ -26,15 +26,5 @@
         "psr/http-server-middleware": "^1.0",
         "psr/http-server-handler": "^1.0",
         "leo980/relay": "^1.0"
-    },
-    "repositories": [{
-        "url": "https://github.com/leo9800/php-relay.git",
-        "type": "git"
-    }, {
-        "url": "https://github.com/leo9800/php-reflector.git",
-        "type": "git"
-    }, {
-        "url": "https://github.com/leo9800/php-request-handler-fixture.git",
-        "type": "git"
-    }]
+    }
 }
