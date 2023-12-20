@@ -1,6 +1,6 @@
 <?php
 
-use Leo980\Fixtures\DummyRequestHandler;
+use Leo980\RequestHandlerFixture\RequestHandler;
 use Leo980\NgRoute\Constraint;
 use Leo980\NgRoute\Exceptions\Route\InvalidSegmentException;
 use Leo980\NgRoute\Route;
@@ -18,7 +18,7 @@ class RouteTest extends TestCase
 	 */
 	public function testGetHandler(): void
 	{
-		$h = new DummyRequestHandler();
+		$h = new RequestHandler();
 		$r = new Route(
 			route_segments:[new FixedSegment('/')],
 			methods:['GET'],
@@ -36,7 +36,7 @@ class RouteTest extends TestCase
 		$r = new Route(
 			route_segments:[new FixedSegment('/')],
 			methods:['GET', 'POST'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 		);
 
 		$this->assertSame(['GET', 'POST'], $r->getMethods());
@@ -52,7 +52,7 @@ class RouteTest extends TestCase
 			// @phpstan-ignore-next-line
 			route_segments:[new FixedSegment('/'), new stdClass()],
 			methods:['GET'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 		);
 	}
 
@@ -64,7 +64,7 @@ class RouteTest extends TestCase
 		$r = new Route(
 			route_segments:[new FixedSegment('/')],
 			methods:['gEt', 'PoSt'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 		);
 
 		$this->assertSame(['GET', 'POST'], $r->getMethods());
@@ -78,7 +78,7 @@ class RouteTest extends TestCase
 		$r = new Route(
 			route_segments:[new FixedSegment('/')],
 			methods:['GET', 'GET', 'GET'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 		);
 
 		$this->assertSame(['GET'], $r->getMethods());
@@ -94,7 +94,7 @@ class RouteTest extends TestCase
 				new VariableSegment('param2', '.*'),
 			],
 			methods:['GET'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 		);
 
 		$this->assertSame('/^\/fixed1\/(\d+)\/fixed2\/(.*)$/', $r->matches());
@@ -109,7 +109,7 @@ class RouteTest extends TestCase
 		$r = new Route(
 			route_segments:$s,
 			methods:['GET', 'POST'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 		);
 
 		$this->assertSame($s, $r->getSegments());
@@ -123,7 +123,7 @@ class RouteTest extends TestCase
 		$r = new Route(
 			route_segments:[new FixedSegment('/')],
 			methods:['GET', 'POST'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 			name:'homepage'
 		);
 
@@ -140,7 +140,7 @@ class RouteTest extends TestCase
 		$r = new Route(
 			route_segments:[new FixedSegment('/')],
 			methods:['GET', 'POST'],
-			handler:new DummyRequestHandler(),
+			handler:new RequestHandler(),
 			constraints:$c,
 		);
 

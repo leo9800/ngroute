@@ -7,7 +7,7 @@ use Leo980\NgRoute\Exceptions\Router\MissingParameterException;
 use Leo980\NgRoute\Exceptions\Router\NoMatchingRouteException;
 use Leo980\NgRoute\Segments\FixedSegment;
 use Leo980\NgRoute\Segments\VariableSegment;
-use Leo980\Psr15Relay\Relay;
+use Leo980\Relay\Relay;
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
