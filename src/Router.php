@@ -17,7 +17,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class Router implements RequestHandlerInterface
 {
-	private const PARAMS_ATTRIBUTE = 'NGROUTE_PARAMS';
+	public const PARAMS_ATTRIBUTE = 'NGROUTE_PARAMS';
 
 	/**
 	 * @param ParserInterface            $parser
@@ -33,6 +33,7 @@ class Router implements RequestHandlerInterface
 		private string $prefix = '',
 		private array $middlewares = [],
 		private array $constraints = [],
+		private string $params_attribute = self::PARAMS_ATTRIBUTE,
 	)
 	{
 
@@ -109,6 +110,6 @@ class Router implements RequestHandlerInterface
 		if (!in_array($request->getMethod(), $route->getMethods(), strict:true))
 			throw new MethodMismatchException();
 
-		return $route->getHandler()->handle($request->withAttribute(self::PARAMS_ATTRIBUTE, $params));
+		return $route->getHandler()->handle($request->withAttribute($this->params_attribute, $params));
 	}
 }

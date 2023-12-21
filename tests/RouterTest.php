@@ -101,6 +101,21 @@ class RouterTest extends TestCase
 		));
 	}
 
+	public function testCustomAttributeNameForParams(): void
+	{
+		$rh = new RequestHandler();
+		$r = (new Router(
+			new StdParser(),
+			new Plain(),
+			params_attribute: 'URLPARAMS',
+		))
+			->addRoute(['GET'], '/user/{name}', $rh, 'user')
+			->handle(new ServerRequest('GET', new Uri("https://domain.tld/user/Leo")));
+
+		$this->assertIsArray($rh->getRequest()->getAttribute('URLPARAMS'));
+		$this->assertSame('Leo', $rh->getRequest()->getAttribute('URLPARAMS')['name']);
+	}
+
 	public function testGetUriFromName(): void
 	{
 		$r = (new Router(
